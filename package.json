@@ -1,0 +1,25 @@
+{
+  "name": "playtech-bonus",
+  "version": "0.1.0",
+  "description": "Playtech Bonus API",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "coffee -o lib -c src/*.coffee",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santacruz123/playtech-bonus.git"
+  },
+  "keywords": [
+    "playtech",
+    "bonus",
+    "api"
+  ],
+  "author": "Andrey Vorobyov <vorandrew@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/santacruz123/playtech-bonus/issues"
+  },
+  "homepage": "https://github.com/santacruz123/playtech-bonus#readme"
+}
