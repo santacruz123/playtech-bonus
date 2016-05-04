@@ -15,8 +15,7 @@ describe 'Parse response', ->
               <ns15:result>1</ns15:result>
           </ns15:bonusTriggerResponse>'
 
-    res = yield parser.giveBonus.promocode str
-    assert.equal res, true, "Not true"
+    yield parser.giveBonus.promocode str
 
   it 'Bonus trigger error', ->
     str = '<?xml version="1.0" encoding="UTF-8"?>
