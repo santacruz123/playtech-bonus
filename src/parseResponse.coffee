@@ -11,7 +11,8 @@ module.exports =
   balance: (xml) ->
     xmlParse(xml).then (res) ->
       t = res['ns32:getDynamicBalancesResponse']
-      error = t['ns32:errorCode'][0]
+      err = "Response error #{t['ns32:errorCode']}"
+      throw new Error err if t['ns32:errorCode'][0] > 0
       tmp = t['ns32:balances'][0]['ns32:dynamicBalance'][0]['ns23:balance'][0]
 
       amount: +tmp['ns23:amount'][0], currency: tmp['ns23:currencyCode'][0]
