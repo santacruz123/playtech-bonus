@@ -4,19 +4,19 @@ getUniqueTX = ->
   'TX' + do Math.random * Math.pow 10, 20
 
 getXMLHelper = (obj)->
-  do xml.create().end pretty: true
+  do xml.create(obj).end
 
 module.exports =
   parseResponseXML: require './parseResponse'
   getAPIEndpoint: (bonusType) ->
     switch bonusType
       when 'buybonus','customevent'
-        @apiURL + '/product/ums/service/wallet/operation/buy-bonus'
+        @url + '/product/ums/service/wallet/operation/buy-bonus'
       when 'optin'
-        @apiURL + '/product/ums/service/bonus/' +
+        @url + '/product/ums/service/bonus/' +
           'operation/opt-in-to-bonus-template'
       when 'promocode'
-        @apiURL + '/product/ums/service/bonus/operation/bonus-trigger'
+        @url + '/product/ums/service/bonus/operation/bonus-trigger'
       else
         throw new Error "Unknown bonus type #{bonusType}"
 
@@ -75,7 +75,7 @@ module.exports =
               promotionCode: code
               clientType: 'casino'
 
-  headers:
+  headers: ->
     'Content-Type': 'application/xml'
     'X-Player-Username': @username
     'X-Casinoname': @casino
