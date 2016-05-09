@@ -2,6 +2,8 @@ fs = require 'fs'
 request = require 'request-promise'
 p = require './private'
 _ = require 'lodash'
+debug = require('debug')('playtech')
+
 module.exports = class Playtech
   constructor: (opt) ->
     throw new Error 'Missing casino option' if not opt.casino?
@@ -34,6 +36,10 @@ module.exports = class Playtech
       headers: p.headers.call @
       cert: @cert
       key: @key
+
+    debug "URI - %s", reqOpt.uri
+    debug "Body - %s", reqOpt.body
+    debug "Headers - ", reqOpt.headers
 
     reqOpt = _.assign reqOpt, reqOptOverride
 

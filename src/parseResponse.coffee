@@ -1,5 +1,6 @@
 Promise = require 'bluebird'
 {parseString} = require 'xml2js'
+debug = require('debug')('playtech')
 
 xmlParse = (xml) ->
   new Promise (resolve, reject) ->
@@ -9,6 +10,7 @@ xmlParse = (xml) ->
 
 
 parseBonusTriggerResponse = (xml) ->
+  debug "Response - %s", xml
   xmlParse(xml).then (res) ->
     t = res['ns15:bonusTriggerResponse']
     err = "Response error #{t['ns15:errorCode']}"
@@ -18,6 +20,7 @@ parseBonusTriggerResponse = (xml) ->
 
 module.exports =
   balance: (xml) ->
+    debug "Response - %s", xml
     xmlParse(xml).then (res) ->
       t = res['ns32:getDynamicBalancesResponse']
       err = "Response error #{t['ns32:errorCode']}"
@@ -30,6 +33,7 @@ module.exports =
     customevent: parseBonusTriggerResponse
     promocode: parseBonusTriggerResponse
     optin: (xml)->
+      debug "Response - %s", xml
       xmlParse(xml).then (res) ->
         t = res['ns15:optInToBonusTemplateResponse']
         err = "Response error #{t['ns15:errorCode']}"
