@@ -5,6 +5,8 @@ _ = require 'lodash'
 debug = require('debug')('playtech')
 
 module.exports = class Playtech
+  @bonusTypes = ['buybonus', 'optin', 'customevent', 'promocode', 'manual']
+
   constructor: (opt) ->
     throw new Error 'Missing casino option' if not opt.casino?
     throw new Error 'Missing cert option' if not opt.cert?
@@ -21,10 +23,10 @@ module.exports = class Playtech
     throw new Error "Missing username" if not @username?
     throw new Error "Missing bonus code" if not opt.code?
 
-    if opt.type not in ['buybonus', 'optin', 'customevent', 'promocode']
+    if opt.type not in Playtech.bonusTypes
       throw new Error "Unknown bonus type"
 
-    if opt.type is 'buybonus' and not opt.amount
+    if opt.type in ['buybonus', 'manual'] and not opt.amount
       throw new Error "Missing amount param"
 
     getBody = p.getRequestXML.giveBonus[opt.type]

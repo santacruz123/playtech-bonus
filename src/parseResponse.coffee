@@ -38,3 +38,10 @@ module.exports =
         t = res['ns15:optInToBonusTemplateResponse']
         err = "Response error #{t['ns15:errorCode']}"
         throw new Error err if +t['ns15:errorCode'][0] > 0
+    manual: (xml)->
+      debug "Response - %s", xml
+      xmlParse(xml).then (res) ->
+        t = res['ns15:giveManualBonusResponse']
+        err = "Response error #{t['ns15:errorCode']}"
+        throw new Error err if +t['ns15:errorCode'][0] > 0
+        +t['ns15:pendingBonusCode'][0]

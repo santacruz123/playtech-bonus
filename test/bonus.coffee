@@ -6,7 +6,6 @@ assert = chai.assert
 Playtech = require '../src/index'
 
 describe 'Give bonus', ->
-
   if not process.env.PT_CASINO?
     throw new Error "Missing PT_CASINO variable"
 
@@ -31,7 +30,6 @@ describe 'Give bonus', ->
   pt.setUsername process.env.PT_TEST_USERNAME
 
   it 'customevent', ->
-
     if not process.env.PT_TEST_BONUSTRIGGER_CUSTOMEVENT?
       throw new Error "Missing PT_TEST_BONUSTRIGGER_CUSTOMEVENT variable"
 
@@ -40,10 +38,26 @@ describe 'Give bonus', ->
       code: process.env.PT_TEST_BONUSTRIGGER_CUSTOMEVENT
 
   it 'promocode', ->
-
     if not process.env.PT_TEST_BONUSTRIGGER_PROMOCODE?
       throw new Error "Missing PT_TEST_BONUSTRIGGER_PROMOCODE variable"
 
     yield pt.giveBonus
       type: 'promocode'
       code: process.env.PT_TEST_BONUSTRIGGER_PROMOCODE
+
+  it 'optin', ->
+    if not process.env.PT_TEST_BONUSTRIGGER_OPTIN?
+      throw new Error "Missing PT_TEST_BONUSTRIGGER_OPTIN variable"
+
+    yield pt.giveBonus
+      type: 'optin'
+      code: process.env.PT_TEST_BONUSTRIGGER_OPTIN
+
+  it 'manual', ->
+    if not process.env.PT_TEST_BONUSTRIGGER_MANUAL?
+      throw new Error "Missing PT_TEST_BONUSTRIGGER_MANUAL variable"
+
+    yield pt.giveBonus
+      type: 'manual'
+      code: process.env.PT_TEST_BONUSTRIGGER_MANUAL
+      amount: 1

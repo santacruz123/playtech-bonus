@@ -1,7 +1,7 @@
 xml = require 'xmlbuilder'
 
 getUniqueTX = ->
-  'TX' + do Math.random * Math.pow 10, 20
+  'TX' + do Math.random * Math.pow 10, 18
 
 getXMLHelper = (obj)->
   do xml.create(obj).end
@@ -10,7 +10,7 @@ module.exports =
   parseResponseXML: require './parseResponse'
   getAPIEndpoint: (bonusType) ->
     switch bonusType
-      when 'buybonus','customevent'
+      when 'buybonus','customevent','manual'
         @url + '/product/ums/service/wallet/operation/buy-bonus'
       when 'optin'
         @url + '/product/ums/service/bonus/' +
@@ -74,6 +74,22 @@ module.exports =
             parameters:
               promotionCode: code
               clientType: 'casino'
+
+      manual: (code, amount, curr = 'GBP') ->
+        throw new Error "Missing code" if not code?
+        throw new Error "Missing amount" if not amount?
+
+        getXMLHelper
+          giveManualBonusRequest:
+            '@xmlns': 'http://www.playtech.com/services/bonus'
+            '@xmlns:ns2': 'http://www.playtech.com/services/common'
+            templateId: code
+            transactionCode: do getUniqueTX
+            bonusType: 0
+            description: 'who_bonus'
+            amount:
+              'ns2:amount': amount
+              'ns2:currencyCode': curr
 
   headers: ->
     'Content-Type': 'application/xml'
