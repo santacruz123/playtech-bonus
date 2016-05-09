@@ -14,6 +14,7 @@ parseBonusTriggerResponse = (xml) ->
     err = "Response error #{t['ns15:errorCode']}"
     throw new Error err if +t['ns15:errorCode'][0] > 0
     throw new Error "Bonus not given" if +t['ns15:result'][0] isnt 1
+    true
 
 module.exports =
   balance: (xml) ->
