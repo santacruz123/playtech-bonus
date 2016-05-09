@@ -46,3 +46,24 @@ module.exports = class Playtech
     reqOpt = _.assign reqOpt, reqOptOverride
 
     request(reqOpt).then p.parseResponseXML.giveBonus[opt.type]
+
+  balance: (reqOptOverride) ->
+    throw new Error "Missing username" if not @username?
+
+    getBody = p.getRequestXML.balance
+
+    reqOpt =
+      method: 'POST'
+      uri: @url + '/product/ums/service/wallet/operation/get-dynamic-balances'
+      body: do getBody
+      headers: p.headers.call @
+      cert: @cert
+      key: @key
+
+    debug "URI - %s", reqOpt.uri
+    debug "Body - %s", reqOpt.body
+    debug "Headers - ", reqOpt.headers
+
+    reqOpt = _.assign reqOpt, reqOptOverride
+
+    request(reqOpt).then p.parseResponseXML.balance
