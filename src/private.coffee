@@ -21,6 +21,13 @@ module.exports =
         throw new Error "Unknown bonus type #{bonusType}"
 
   getRequestXML:
+    vip: ->
+      getXMLHelper
+        getPlayerInfoRequest2:
+          '@xmlns': 'http://www.playtech.com/services/player-management'
+          requestType: 'marked'
+          requestedPlayerData: 31
+
     balance: () ->
       getXMLHelper
         getDynamicBalancesRequest:

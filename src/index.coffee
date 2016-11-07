@@ -67,3 +67,18 @@ module.exports = class Playtech
     reqOpt = _.assign reqOpt, reqOptOverride
 
     request(reqOpt).then p.parseResponseXML.balance
+
+  vip: ->
+    throw new Error "Missing username" if not @username?
+
+    getBody = p.getRequestXML.vip
+
+    reqOpt =
+      method: 'POST'
+      uri: @url + '/product/ums/service/player-management/operation/get-player-info2'
+      body: do getBody
+      headers: p.headers.call @
+      cert: @cert
+      key: @key
+
+    request(reqOpt).then p.parseResponseXML.vip

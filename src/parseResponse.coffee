@@ -19,6 +19,14 @@ parseBonusTriggerResponse = (xml) ->
     true
 
 module.exports =
+  vip: (xml) ->
+    debug "Response - %s", xml
+    xmlParse(xml).then (res) ->
+      t = res['ns12:getPlayerInfoResponse2']
+      err = "Response error #{t['ns12:errorCode']}"
+      throw new Error err if +t['ns12:errorCode'][0] > 0
+      +t['ns12:playerDataMap'][0]['ns12:vipLevel'][0]
+
   balance: (xml) ->
     debug "Response - %s", xml
     xmlParse(xml).then (res) ->
