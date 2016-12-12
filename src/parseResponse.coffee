@@ -12,10 +12,10 @@ xmlParse = (xml) ->
 parseBonusTriggerResponse = (xml) ->
   debug "Response - %s", xml
   xmlParse(xml).then (res) ->
-    t = res['ns15:bonusTriggerResponse']
-    err = "Response error #{t['ns15:errorCode']}"
-    throw new Error err if +t['ns15:errorCode'][0] > 0
-    throw new Error "Bonus not given" if +t['ns15:result'][0] isnt 1
+    t = res['ns16:bonusTriggerResponse']
+    err = "Response error #{t['ns16:errorCode']}"
+    throw new Error err if +t['ns16:errorCode'][0] > 0
+    throw new Error "Bonus not given" if +t['ns16:result'][0] isnt 1
     true
 
 module.exports =
@@ -43,13 +43,13 @@ module.exports =
     optin: (xml)->
       debug "Response - %s", xml
       xmlParse(xml).then (res) ->
-        t = res['ns15:optInToBonusTemplateResponse']
-        err = "Response error #{t['ns15:errorCode']}"
-        throw new Error err if +t['ns15:errorCode'][0] > 0
+        t = res['ns16:optInToBonusTemplateResponse']
+        err = "Response error #{t['ns16:errorCode']}"
+        throw new Error err if +t['ns16:errorCode'][0] > 0
     manual: (xml)->
       debug "Response - %s", xml
       xmlParse(xml).then (res) ->
-        t = res['ns15:giveManualBonusResponse']
-        err = "Response error #{t['ns15:errorCode']}"
-        throw new Error err if +t['ns15:errorCode'][0] > 0
-        +t['ns15:pendingBonusCode'][0]
+        t = res['ns16:giveManualBonusResponse']
+        err = "Response error #{t['ns16:errorCode']}"
+        throw new Error err if +t['ns16:errorCode'][0] > 0
+        +t['ns16:pendingBonusCode'][0]

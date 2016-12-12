@@ -1,6 +1,6 @@
 {
   "name": "playtech-bonus",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Playtech Bonus API",
   "main": "lib/index.js",
   "scripts": {
